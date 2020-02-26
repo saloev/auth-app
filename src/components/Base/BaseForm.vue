@@ -13,17 +13,19 @@
       </p>
     </transition>
 
-    <button type="submit">Sumbit</button>
+    <BaseButton :btn="{ type: 'submit', text: 'login' }" />
   </form>
 </template>
 <script>
 import BaseInput from './BaseInput.vue'
+import BaseButton from './BaseButton.vue'
 
 export default {
   name: 'BaseForm',
 
   components: {
     BaseInput,
+    BaseButton,
   },
 
   props: {
@@ -34,8 +36,9 @@ export default {
           {
             type: 'email',
             label: 'email',
-            validate: true,
             autocomplete: 'email',
+            placeholder: 'example@mail.com',
+            validate: true,
             validateFunc(value) {
               // @see http://jsfiddle.net/ghvj4gy9/embedded/result,js/
               const MAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line no-useless-escape
@@ -51,8 +54,9 @@ export default {
           {
             type: 'password',
             label: 'password',
-            validate: true,
             autocomplete: 'current-password',
+            placeholder: '***',
+            validate: true,
             validateFunc(value) {
               if (value.length <= 5) {
                 return {
@@ -150,4 +154,8 @@ export default {
   },
 }
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.form {
+  min-width: 280px;
+}
+</style>

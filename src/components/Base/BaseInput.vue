@@ -1,11 +1,12 @@
 <template>
-  <p class="base-input__wrap">
-    <label class="base-input__label">
-      <span class="base-input__label-text">{{ item.label }}</span>
+  <p class="input__wrap">
+    <label class="input__label">
+      <span class="input__label-text">{{ item.label }}</span>
       <input
-        class="base-input__input"
-        :type="item.type"
+        class="input"
         v-model="inputData"
+        :placeholder="item.placeholder"
+        :type="item.type"
         :required="item.validate"
         :autocomplete="item.autocomplete"
       />
@@ -42,3 +43,53 @@ export default {
   }),
 }
 </script>
+
+<style lang="scss">
+.input {
+  display: block;
+  width: 100%;
+  outline: none;
+  padding: 12px 20px;
+  border: 0;
+
+  border-radius: 4px;
+  background: #c6c0d3;
+
+  font-weight: 500;
+  color: #000;
+
+  border: 2px solid transparent;
+
+  transition: 0.3s ease-in-out;
+
+  @include setFontSizeAndLineHeight(4vw);
+
+  @include adopt($md) {
+    @include setFontSizeAndLineHeight(1.5vw);
+  }
+
+  &:hover {
+    border-color: #5a5a75;
+  }
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+
+  &__label {
+    &-text {
+      margin-bottom: 5px;
+      display: block;
+
+      text-transform: capitalize;
+      color: #fff;
+
+      @include setFontSizeAndLineHeight(6vw);
+
+      @include adopt($md) {
+        @include setFontSizeAndLineHeight(2vw);
+      }
+    }
+  }
+}
+</style>

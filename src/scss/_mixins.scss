@@ -1,0 +1,10 @@
+@mixin adopt($width, $prop: 'min-width') {
+  @media (#{$prop}: $width) {
+    @content;
+  }
+}
+
+@mixin setFontSizeAndLineHeight($value) {
+  font-size: $value;
+  line-height: calc(#{$value} + 5px);
+}

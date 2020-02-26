@@ -1,4 +1,10 @@
-$primary: #091833;
-$primary--light: #1c4185;
+:root {
+  --color-primary: #091833;
+  --color-primary--light: #1c4185;
+  --color-info: #e7e7e7;
+}
 
-$info: #e7e7e7;
+// breakpoints
+$md: 768px;
+
+@import 'mixins';
