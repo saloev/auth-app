@@ -147,7 +147,7 @@ export default {
 
     submitForm() {
       if (this.validateForm()) return
-      this.$emit('submitForm', this.form);
+      this.$emit('submitForm', this.form)
     },
   },
 }

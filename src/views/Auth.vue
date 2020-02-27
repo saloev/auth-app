@@ -1,7 +1,7 @@
 <template>
   <div class="auth">
     <transition-group name="fade">
-      <BaseTitle class="auth__title" title="Account Login" v-show="show" :key="'title'"/>
+      <BaseTitle class="auth__title" title="Account Login" v-show="show" :key="'title'" />
       <BaseForm class="auth__form" v-show="show" :key="'form'" @submitForm="authUser" />
     </transition-group>
   </div>
