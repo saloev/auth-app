@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store/index'
+import firebase from '@/plugins/firebase'
 
 const Layout = () => import(/* webpackChunkName: "Layout" */ '@/components/layouts/MainLayout.vue')
 const Home = () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
@@ -35,10 +37,26 @@ const router = new VueRouter({
   routes,
 })
 
+const authState = () => {
+  return new Promise(resolve => {
+    firebase.auth().onAuthStateChanged(user => {
+      return store.dispatch('fetchUser', user).then(() => {
+        resolve()
+      })
+    })
+  })
+}
+
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = true;
-  if (to.name !== 'Auth' && !isAuthenticated) next({ name: 'Auth' })
-  else next()
+  authState()
+    .then(() => {
+      const isAuthenticated = store.getters.user && store.getters.user.uid
+      if (to.name !== 'Auth' && !isAuthenticated) next({ name: 'Auth' })
+      else next()
+    })
+    .catch(e => {
+      console.error(e)
+    })
 })
 
 export default router

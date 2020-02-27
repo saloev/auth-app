@@ -2,7 +2,7 @@
   <div class="auth">
     <transition-group name="fade">
       <BaseTitle class="auth__title" title="Account Login" v-show="show" :key="'title'"/>
-      <BaseForm class="auth__form" v-show="show" :key="'form'"/>
+      <BaseForm class="auth__form" v-show="show" :key="'form'" @submitForm="authUser" />
     </transition-group>
   </div>
 </template>
@@ -23,18 +23,51 @@ export default {
     timeout: null,
   }),
 
+  watch: {
+    user: {
+      handler(value) {
+        if (value)
+          this.$router.push({
+            name: 'Home',
+          })
+      },
+      immediate: true,
+    },
+  },
+
+  computed: {
+    user() {
+      return this.$store.getters.user && this.$store.getters.user.uid
+    },
+  },
+
   methods: {
     animateAppearance() {
-      if (this.timeout) clearTimeout(this.timeout);
+      if (this.timeout) clearTimeout(this.timeout)
 
       this.timeout = setTimeout(() => {
-        this.show = true;
-      }, 500);
+        this.show = true
+      }, 500)
+    },
+
+    authUser(data) {
+      this.$store
+        .dispatch('signInUser', data)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(e => {
+          console.error(e)
+        })
     },
   },
 
   mounted() {
     this.animateAppearance()
+    // console.log(this.user)
+    // setTimeout(() => {
+    //   console.log(this.user)
+    // }, 5000)
   },
 }
 </script>

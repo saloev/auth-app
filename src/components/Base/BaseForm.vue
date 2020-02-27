@@ -1,5 +1,5 @@
 <template>
-  <form class="form" @submit="submitForm">
+  <form class="form" @submit.prevent="submitForm">
     <BaseInput
       v-for="(input, index) in inputs"
       :key="`base-input-item--${index}`"
@@ -145,11 +145,9 @@ export default {
       })
     },
 
-    submitForm(e) {
-      e.preventDefault()
+    submitForm() {
       if (this.validateForm()) return
-
-      console.log('SUBMITFORM')
+      this.$emit('submitForm', this.form);
     },
   },
 }

@@ -23,6 +23,7 @@ export default {
         '--color': this.btn.color,
         '--bg-color': this.btn.bgColor,
         '--hover-color': this.btn.hoverColor,
+        '--max-width': this.btn.maxWidth,
       }
     },
   },
@@ -30,6 +31,7 @@ export default {
 </script>
 <style lang="scss">
 .button {
+  max-width: var(--max-width, 100%);
   width: 100%;
   outline: none;
   padding: 12px 20px;
