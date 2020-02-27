@@ -4,11 +4,13 @@
       <BaseTitle class="auth__title" title="Account Login" v-show="show" :key="'title'" />
       <BaseForm class="auth__form" v-show="show" :key="'form'" @submitForm="authUser" />
     </transition-group>
+    <BaseAlert :show-alert="alert.show" :text="alert.msg" :type="alert.type" />
   </div>
 </template>
 <script>
 import BaseForm from '@/components/Base/BaseForm.vue'
 import BaseTitle from '@/components/Base/BasePageTitle.vue'
+import BaseAlert from '@/components/Base/BaseAlert.vue'
 
 export default {
   name: 'Auth',
@@ -16,11 +18,17 @@ export default {
   components: {
     BaseForm,
     BaseTitle,
+    BaseAlert,
   },
 
   data: () => ({
     show: false,
     timeout: null,
+    alertTimeout: null,
+    alert: {
+      show: false,
+      msg: '',
+    },
   }),
 
   watch: {
@@ -50,6 +58,23 @@ export default {
       }, 500)
     },
 
+    showStatus(msg, type = 'error') {
+      this.alert = {
+        show: true,
+        msg,
+        type,
+      }
+
+      if (this.alertTimeout) clearTimeout(this.alertTimeout)
+      this.alertTimeout = setTimeout(() => {
+        this.alert = {
+          show: false,
+          msg,
+          type,
+        }
+      })
+    },
+
     authUser(data) {
       this.$store
         .dispatch('signInUser', data)
@@ -57,6 +82,7 @@ export default {
           console.log(res)
         })
         .catch(e => {
+          this.showStatus(e)
           console.error(e)
         })
     },
