@@ -36,7 +36,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = false
+  const isAuthenticated = true;
   if (to.name !== 'Auth' && !isAuthenticated) next({ name: 'Auth' })
   else next()
 })

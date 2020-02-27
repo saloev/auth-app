@@ -1,19 +1,19 @@
 <template>
   <div class="main-layout">
-    <MainHeader />
+    <!-- <MainHeader /> -->
     <main>
-      <reouter-view />
+      <router-view />
     </main>
   </div>
 </template>
 <script>
-import MainHeader from './MainHeader.vue'
+// import MainHeader from './MainHeader.vue'
 
 export default {
   name: 'MainLayout',
 
-  components: {
-    MainHeader,
-  },
+  // components: {
+  //   MainHeader,
+  // },
 }
 </script>

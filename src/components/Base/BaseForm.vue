@@ -7,7 +7,7 @@
       :value.sync="form[input.label]"
     />
 
-    <transition>
+    <transition name="fade">
       <p v-show="error.show">
         {{ error.text }}
       </p>
@@ -61,7 +61,7 @@ export default {
               if (value.length <= 5) {
                 return {
                   err: true,
-                  msg: 'Login must be more than 5 symbols',
+                  msg: 'Password must contain more than 5 symbols',
                 }
               }
 
@@ -92,7 +92,7 @@ export default {
     },
   }),
   created() {
-    // save v-model inputs to form data
+    // create and save v-model inputs to form data
     this.form = this.inputs.reduce(
       (acc, { label }) => ({
         [label]: null,
