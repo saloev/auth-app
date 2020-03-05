@@ -36,7 +36,7 @@ export default {
           {
             type: 'email',
             label: 'email',
-            autocomplete: 'username',
+            autocomplete: 'username email',
             placeholder: 'example@mail.com',
             validate: true,
             validateFunc(value) {

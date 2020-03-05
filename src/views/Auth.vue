@@ -2,7 +2,7 @@
   <div class="auth">
     <transition-group name="fade">
       <BaseTitle class="auth__title" title="Account Login" v-show="show" :key="'title'" />
-      <BaseForm class="auth__form" v-show="show" :key="'form'" @submitForm="authUser" />
+      <BaseForm class="auth__form" v-show="show" :key="'form'" @submitForm="authUser" ref="form" />
     </transition-group>
     <BaseAlert :show-alert="alert.show" :text="alert.msg" :type="alert.type" />
   </div>
@@ -79,6 +79,19 @@ export default {
       this.$store
         .dispatch('signInUser', data)
         .then(res => {
+          return Promise.resolve(res);
+        })
+        .then(res => {
+          // @see https://developers.google.com/web/fundamentals/security/credential-management/save-forms
+          // Instantiate PasswordCredential with the form
+          if (window.PasswordCredential) {
+            const saveData = new PasswordCredential({id: Math.ceil(Math.random() * 10), password: data.password}); // eslint-disable-line no-undef
+            return navigator.credentials.store(saveData);
+          }
+
+          return Promise.resolve(res);
+        })
+        .then(res => {
           console.log(res);
         })
         .catch(e => {
@@ -89,6 +102,7 @@ export default {
   },
 
   mounted() {
+    console.log();
     this.animateAppearance();
     // console.log(this.user)
     // setTimeout(() => {
