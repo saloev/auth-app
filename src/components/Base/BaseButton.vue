@@ -12,7 +12,7 @@ export default {
         return {
           text: 'Submit',
           type: 'submit',
-        }
+        };
       },
     },
   },
@@ -24,10 +24,10 @@ export default {
         '--bg-color': this.btn.bgColor,
         '--hover-color': this.btn.hoverColor,
         '--max-width': this.btn.maxWidth,
-      }
+      };
     },
   },
-}
+};
 </script>
 <style lang="scss">
 .button {

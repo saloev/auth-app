@@ -26,7 +26,7 @@ export default {
           label: 'Login',
           autocomplete: 'name',
           validate: true,
-        }
+        };
       },
     },
     value: null,
@@ -34,14 +34,14 @@ export default {
 
   watch: {
     inputData() {
-      this.$emit('update:value', this.inputData)
+      this.$emit('update:value', this.inputData);
     },
   },
 
   data: () => ({
     inputData: null,
   }),
-}
+};
 </script>
 
 <style lang="scss">

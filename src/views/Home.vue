@@ -11,18 +11,16 @@
       @click.native="logoutUser"
     />
 
-    <video
-      src="https://media.giphy.com/media/G3773sSDJHHy0/giphy.mp4"
-      autoplay
-      loop
-      muted
-      playsinline
-    ></video>
+    <img
+      src="https://media.giphy.com/media/G3773sSDJHHy0/200w_d.gif"
+      alt="fat cat"
+      style="width: 100%; max-width: 200px"
+    />
   </div>
 </template>
 
 <script>
-import BaseButton from '@/components/Base/BaseButton.vue'
+import BaseButton from '@/components/Base/BaseButton.vue';
 
 export default {
   name: 'Home',
@@ -31,6 +29,10 @@ export default {
     BaseButton,
   },
 
+  data: () => ({
+    timeout: null,
+  }),
+
   methods: {
     logoutUser() {
       this.$store
@@ -38,14 +40,32 @@ export default {
         .then(() => {
           this.$router.push({
             name: 'Auth',
-          })
+          });
         })
         .catch(e => {
-          console.error(e)
-        })
+          console.error(e);
+        });
+    },
+
+    /**
+     * Force browser to show popover for saving password
+     */
+    reloadPage() {
+      if (this.timeout) clearTimeout(this.timeout);
+      const isPageAlreadyReloaded = localStorage.getItem('isHomePageReloaded');
+      if (isPageAlreadyReloaded) return;
+
+      this.timeout = setTimeout(() => {
+        localStorage.setItem('isHomePageReloaded', 'true');
+        window.location.reload();
+      }, 500);
     },
   },
-}
+
+  mounted() {
+    this.reloadPage();
+  },
+};
 </script>
 <style lang="scss">
 .home {

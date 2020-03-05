@@ -22,10 +22,10 @@ export default {
     type: {
       type: String,
       default() {
-        return 'success'
+        return 'success';
       },
       validator(value) {
-        return ['success', 'error'].indexOf(value) !== -1
+        return ['success', 'error'].indexOf(value) !== -1;
       },
     },
   },
@@ -41,19 +41,19 @@ export default {
           '--bg-color': '#ff6766',
           '--text-color': '#fff',
         }),
-      }
+      };
 
-      return dispatchType[this.type]()
+      return dispatchType[this.type]();
     },
   },
 
   watch: {
     show(value) {
-      this.$emit('update:showAlert', value)
-      if (this.timeout) clearTimeout(this.timeout)
+      this.$emit('update:showAlert', value);
+      if (this.timeout) clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
-        this.$emit('update:showAlert', false)
-      }, 2500)
+        this.$emit('update:showAlert', false);
+      }, 2500);
     },
   },
 
@@ -63,9 +63,9 @@ export default {
   }),
 
   mounted() {
-    this.show = this.showAlert
+    this.show = this.showAlert;
   },
-}
+};
 </script>
 <style lang="scss">
 .base-alert {

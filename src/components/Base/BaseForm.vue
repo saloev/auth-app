@@ -17,8 +17,8 @@
   </form>
 </template>
 <script>
-import BaseInput from './BaseInput.vue'
-import BaseButton from './BaseButton.vue'
+import BaseInput from './BaseInput.vue';
+import BaseButton from './BaseButton.vue';
 
 export default {
   name: 'BaseForm',
@@ -36,19 +36,19 @@ export default {
           {
             type: 'email',
             label: 'email',
-            autocomplete: 'email',
+            autocomplete: 'username',
             placeholder: 'example@mail.com',
             validate: true,
             validateFunc(value) {
               // @see http://jsfiddle.net/ghvj4gy9/embedded/result,js/
-              const MAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line no-useless-escape
-              const isEmailValie = MAIL_REGEX.test(`${value}`)
-              if (isEmailValie) return { err: false }
+              const MAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line no-useless-escape
+              const isEmailValie = MAIL_REGEX.test(`${value}`);
+              if (isEmailValie) return { err: false };
 
               return {
                 err: true,
                 msg: 'Email not valid',
-              }
+              };
             },
           },
           {
@@ -62,23 +62,23 @@ export default {
                 return {
                   err: true,
                   msg: 'Password must contain more than 5 symbols',
-                }
+                };
               }
 
-              const isContaintNumber = /\d+/.test(value)
+              const isContaintNumber = /\d+/.test(value);
               if (!isContaintNumber) {
                 return {
                   err: true,
                   msg: 'Password must containt at least one number',
-                }
+                };
               }
 
               return {
                 err: false,
-              }
+              };
             },
           },
-        ]
+        ];
       },
     },
   },
@@ -99,58 +99,58 @@ export default {
         ...acc,
       }),
       {}
-    )
+    );
   },
 
   methods: {
     showError(msg) {
-      if (this.error.timeout) clearTimeout(this.error.timeout)
+      if (this.error.timeout) clearTimeout(this.error.timeout);
 
       const timeout = setTimeout(() => {
         this.error = {
           show: false,
           text: null,
           timeout: null,
-        }
-      }, 2500)
+        };
+      }, 2500);
 
       this.error = {
         show: true,
         text: msg,
         timeout,
-      }
+      };
     },
 
     validateForm() {
       return this.inputs.some(({ label, validate, validateFunc }) => {
-        if (!validate) return false
+        if (!validate) return false;
 
-        const value = this.form[label]
+        const value = this.form[label];
         // if empty
         if (value === null || value === '') {
-          this.showError(`${label} is required`)
-          return true
+          this.showError(`${label} is required`);
+          return true;
         }
 
-        if (!validateFunc) return false
+        if (!validateFunc) return false;
 
-        const isHasError = validateFunc(value)
+        const isHasError = validateFunc(value);
 
         if (isHasError.err) {
-          this.showError(isHasError.msg)
-          return true
+          this.showError(isHasError.msg);
+          return true;
         }
 
-        return false
-      })
+        return false;
+      });
     },
 
     submitForm() {
-      if (this.validateForm()) return
-      this.$emit('submitForm', this.form)
+      if (this.validateForm()) return;
+      this.$emit('submitForm', this.form);
     },
   },
-}
+};
 </script>
 <style lang="scss">
 .form {

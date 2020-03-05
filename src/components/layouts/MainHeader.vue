@@ -6,6 +6,6 @@
 <script>
 export default {
   name: 'MainHeader',
-}
+};
 </script>
 <style lang="scss"></style>

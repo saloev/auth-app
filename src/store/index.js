@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-import firebase from '@/plugins/firebase'
+import firebase from '@/plugins/firebase';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
@@ -12,16 +12,16 @@ export default new Vuex.Store({
   },
   mutations: {
     setUser(state, payload) {
-      state.user = payload
+      state.user = payload;
     },
     setAuthStateChanged(state, payload) {
-      state.isAuthStateChangedSet = payload
+      state.isAuthStateChangedSet = payload;
     },
   },
   actions: {
     fetchUser({ commit }, payload) {
-      if (payload) commit('setUser', payload)
-      else commit('setUser', null)
+      if (payload) commit('setUser', payload);
+      else commit('setUser', null);
     },
 
     signInUser({ commit }, { email, password }) {
@@ -29,11 +29,11 @@ export default new Vuex.Store({
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(user => {
-          commit('setUser', user)
+          commit('setUser', user);
         })
         .catch(e => {
-          console.error(e)
-        })
+          console.error(e);
+        });
     },
 
     logoutUser({ commit }) {
@@ -41,16 +41,16 @@ export default new Vuex.Store({
         .auth()
         .signOut()
         .then(() => {
-          commit('user', null)
+          commit('user', null);
         })
         .catch(e => {
-          console.error(e)
-        })
+          console.error(e);
+        });
     },
   },
   getters: {
     user(state) {
-      return state.user
+      return state.user;
     },
   },
-})
+});

@@ -8,9 +8,9 @@
   </div>
 </template>
 <script>
-import BaseForm from '@/components/Base/BaseForm.vue'
-import BaseTitle from '@/components/Base/BasePageTitle.vue'
-import BaseAlert from '@/components/Base/BaseAlert.vue'
+import BaseForm from '@/components/Base/BaseForm.vue';
+import BaseTitle from '@/components/Base/BasePageTitle.vue';
+import BaseAlert from '@/components/Base/BaseAlert.vue';
 
 export default {
   name: 'Auth',
@@ -37,7 +37,7 @@ export default {
         if (value)
           this.$router.push({
             name: 'Home',
-          })
+          });
       },
       immediate: true,
     },
@@ -45,17 +45,17 @@ export default {
 
   computed: {
     user() {
-      return this.$store.getters.user && this.$store.getters.user.uid
+      return this.$store.getters.user && this.$store.getters.user.uid;
     },
   },
 
   methods: {
     animateAppearance() {
-      if (this.timeout) clearTimeout(this.timeout)
+      if (this.timeout) clearTimeout(this.timeout);
 
       this.timeout = setTimeout(() => {
-        this.show = true
-      }, 500)
+        this.show = true;
+      }, 500);
     },
 
     showStatus(msg, type = 'error') {
@@ -63,39 +63,39 @@ export default {
         show: true,
         msg,
         type,
-      }
+      };
 
-      if (this.alertTimeout) clearTimeout(this.alertTimeout)
+      if (this.alertTimeout) clearTimeout(this.alertTimeout);
       this.alertTimeout = setTimeout(() => {
         this.alert = {
           show: false,
           msg,
           type,
-        }
-      })
+        };
+      });
     },
 
     authUser(data) {
       this.$store
         .dispatch('signInUser', data)
         .then(res => {
-          console.log(res)
+          console.log(res);
         })
         .catch(e => {
-          this.showStatus(e)
-          console.error(e)
-        })
+          this.showStatus(e);
+          console.error(e);
+        });
     },
   },
 
   mounted() {
-    this.animateAppearance()
+    this.animateAppearance();
     // console.log(this.user)
     // setTimeout(() => {
     //   console.log(this.user)
     // }, 5000)
   },
-}
+};
 </script>
 <style lang="scss">
 .auth {
