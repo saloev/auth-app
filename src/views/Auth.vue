@@ -85,7 +85,11 @@ export default {
           // @see https://developers.google.com/web/fundamentals/security/credential-management/save-forms
           // Instantiate PasswordCredential with the form
           if (window.PasswordCredential) {
-            const saveData = new PasswordCredential({id: Math.ceil(Math.random() * 10), password: data.password}); // eslint-disable-line no-undef
+            // eslint-disable-next-line no-undef
+            const saveData = new PasswordCredential({
+              id: Math.ceil(Math.random() * 10),
+              password: data.password,
+            });
             return navigator.credentials.store(saveData);
           }
 
